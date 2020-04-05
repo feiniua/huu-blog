@@ -1,7 +1,7 @@
 <template>
   <div id="leftArticle">
     <div class="wrapper">
-      <a href=""><img class="article-img" :src="article.imageAddress"></a>
+      <router-link :to="{name: 'v-article', params: {id: article.id}}"><img class="article-img" :src="article.imageAddress"></router-link>
       <div class="article-body">
         <div class="article-heading">
           <router-link to="/time" class="createTime">{{getDate(article.createAt)}}</router-link>
@@ -36,21 +36,28 @@
   #leftArticle {
     height: auto;
     width: auto;
+  }
+  .wrapper:after {
+    content: "";
+    display: block;
     clear: both;
   }
   .wrapper {
-    width: 80%;
-    margin: 0 auto;
+    width: 90%;
+    height: auto;
+    background-color: #EBEEF5;
+    padding: 50px;
+    margin: 0 auto 10px;
+    border-radius: 20px;
   }
   .article-img {
     width: 55%;
     height: auto;
     float: left;
-    margin-bottom: 150px;
     padding-right: 50px;
   }
   .article-body {
-    width: 35%;
+    width: 37%;
     float: left;
     text-align: center;
     margin-top: -15px;
@@ -68,10 +75,10 @@
     line-height: 100%;
   }
   .article-body .article-heading .createTime:hover {
-    color: #929db1;
+    color: rgba(136, 255, 121, 0.35);
   }
   .article-body .article-heading .createTime:active {
-    color: #7576b1;
+    color: rgba(89, 255, 29, 0.55);
   }
   .article-body .article-heading .tag {
     float: right;
@@ -86,12 +93,19 @@
     text-overflow: ellipsis;
   }
   a {
-    color: #a4b8a2;
+    color: rgba(255, 68, 177, 0.5);
   }
   a:hover {
-    color: #84b17c;
+    color: rgba(122, 255, 133, 0.47);
   }
   a:active {
-    color: #87d57d;
+    color: #92dfff;
+  }
+  span:hover {
+    background-color: #d2e0ff;
+  }
+  span:active {
+    background-color: #DCDFE6;
+    color: #2aa4aa;
   }
 </style>

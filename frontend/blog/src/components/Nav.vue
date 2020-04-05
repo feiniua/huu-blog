@@ -30,9 +30,8 @@
   .nav {
     display: flex;
     position: absolute;
-    right: 20%;
-    top: 50px;
-    margin: auto;
+    right: 15%;
+    top: 10px;
   }
 
   /*伪元素*/

@@ -12,10 +12,17 @@ import VueAxios from "vue-axios";
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+// mavon
+import MavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
+
+
 Vue.config.productionTip = false
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
+Vue.use(MavonEditor)
+
 
 /* eslint-disable no-new */
 new Vue({

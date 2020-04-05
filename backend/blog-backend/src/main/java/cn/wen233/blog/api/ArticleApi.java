@@ -5,7 +5,10 @@ import cn.wen233.blog.core.service.ArticleService;
 import cn.wen233.blog.infrustructure.utils.qiniu.QiNiuUtils;
 import cn.wen233.blog.common.restful.RestInfo;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -30,9 +33,16 @@ public class ArticleApi {
         return RestInfo.success(service.findOne(id));
     }
 
+    /**
+     * 获取所有文章并分页，设置默认pageSize = 8
+     * @param pageable
+     * @return
+     */
     @GetMapping("/all")
-    public RestInfo findAll(Pageable pageable) {
-        return RestInfo.success(service.findAll(pageable));
+    public RestInfo findAll(@PageableDefault(value = 8, sort = {"createAt"}, direction = Sort.Direction.DESC)
+                                        Pageable pageable, Integer pageNumber) {
+        Pageable pageable1 = PageRequest.of(pageNumber, pageable.getPageSize(), pageable.getSort());
+        return RestInfo.success(service.findAll(pageable1));
     }
 
     /**

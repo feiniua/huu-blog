@@ -27,7 +27,7 @@ export default new Router({
       component: Tag,
       name: 'v-tag'
     }, {
-      path: '/article',
+      path: '/article/:id',
       props: true,
       component: Article,
       name: 'v-article'

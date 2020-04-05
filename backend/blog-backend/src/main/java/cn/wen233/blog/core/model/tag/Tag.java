@@ -26,5 +26,6 @@ public class Tag {
     /**
      * 标签名
      */
+    @Column(unique = true)
     private String name;
 }
