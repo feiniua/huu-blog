@@ -1,4 +1,5 @@
 <template>
+<!--  首页文章展示-->
   <div id="leftArticle">
     <div class="wrapper">
       <router-link :to="{name: 'v-article', params: {id: article.id}}"><img class="article-img" :src="article.imageAddress"></router-link>
@@ -18,6 +19,7 @@
 
 <script>
     export default {
+        // 父组件传给的信息
         props: ['article'],
         name: "LeftArticle",
         methods: {
@@ -87,7 +89,7 @@
   }
   .article-body .title {
     width: 100%;
-    height: 60px;
+    height: 50px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -101,10 +103,10 @@
   a:active {
     color: #92dfff;
   }
-  span:hover {
+  .article-heading span:hover {
     background-color: #d2e0ff;
   }
-  span:active {
+  .article-heading span:active {
     background-color: #DCDFE6;
     color: #2aa4aa;
   }

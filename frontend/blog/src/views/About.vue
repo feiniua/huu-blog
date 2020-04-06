@@ -1,4 +1,5 @@
 <template>
+<!--  关于页-->
     <div id="about">
       <div class="wrapper">
         <Nav></Nav>

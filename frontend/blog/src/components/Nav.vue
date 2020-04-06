@@ -1,4 +1,5 @@
 <template>
+<!--  导航栏-->
   <div id="nav">
       <div class="nav">
         <a href="/"><span>Home</span></a>
@@ -76,7 +77,7 @@
   }
 
   .nav a:hover span {
-    background: #fff85e;
+    background: #faf1f4;
     margin-top: 0;
   }
 

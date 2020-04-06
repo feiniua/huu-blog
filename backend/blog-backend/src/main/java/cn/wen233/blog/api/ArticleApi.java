@@ -45,6 +45,11 @@ public class ArticleApi {
         return RestInfo.success(service.findAll(pageable1));
     }
 
+    @GetMapping("/byTagName")
+    public RestInfo findAllByTag(@RequestParam String tagName) {
+        return RestInfo.success(service.findAllByTag(tagName));
+    }
+
     /**
      * 采用表单提交的话需要 @RequestParam跟前端标签的name一致
      * @param title

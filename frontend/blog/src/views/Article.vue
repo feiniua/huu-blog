@@ -1,4 +1,5 @@
 <template>
+<!--  单篇文章页-->
     <div id="article">
       <div class="wrapper">
         <Nav></Nav>
@@ -7,11 +8,12 @@
             <h1 class="title"><router-link to="#">{{message.title}}</router-link></h1>
             <div class="createAt"><router-link to="/time">{{getDate(message.createAt)}}</router-link></div>
             <div v-for="tag in message.tags">
-              <router-link :to="{name: 'v-tag', params: {name: tag.name}}"><el-tag class="tag" type="success">{{tag.name}}</el-tag></router-link>
+              <router-link :to="{name : 'v-singleTag', params: {tagName: tag.name}}"><el-tag class="tag" type="success">{{tag.name}}</el-tag></router-link>
             </div>
           </div>
           <div class="body" v-html="priview"></div>
         </div>
+        <Footing class="footing"></Footing>
         <img :src="message.imageAddress"/>
       </div>
     </div>
@@ -20,18 +22,21 @@
 <script>
     import Nav from "../components/Nav";
     import Marked from 'marked';
+    import Footing from "../components/Footing";
+    import UrlInfo from "../config/UrlInfo";
 
 
     export default {
-      components: {Nav},
+      components: {Footing, Nav},
       props: ['id'],
         name: "Article",
         created() {
           let id = this.$route.params.id;
           let that = this;
+          let url = UrlInfo.url;
           this.axios({
             method: 'get',
-            url: 'http://localhost:8091/api/article/' + id,
+            url: url + '/api/article/' + id,
           }).then(function (response) {
             that.message = response.data.data;
             that.priview = Marked(response.data.data.content)
@@ -58,6 +63,7 @@
 <style scoped>
   .wrapper {
     width: 100%;
+    height: auto;
     position: relative;
   }
   img {
@@ -66,11 +72,11 @@
     left: 0;
     z-index: -2;
     width: 100%;
-    height: 100%;
+    height: 110%;
   }
   .content {
     text-align: left;
-    position: absolute;
+    position: relative;
     width: 80%;
     height: auto;
     min-height: 500px;
@@ -123,5 +129,10 @@
   span:active {
     background-color: #DCDFE6;
     color: #2aa4aa;
+  }
+  .footing {
+    margin-top: 90px;
+    text-shadow: #efffe6 1px 0px;
+    padding: 5px;
   }
 </style>

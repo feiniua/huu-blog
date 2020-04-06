@@ -22,7 +22,15 @@ public interface ArticleService {
     Article findOne(String id);
 
 
+    /**
+     * 首页分页数据
+     * @param pageable
+     * @return
+     */
     PageInfo<ArticleVo> findAll(Pageable pageable);
+
+
+    List<ArticleVo> findAllByTag(String tagName);
 
     /**
      * 保存新文章

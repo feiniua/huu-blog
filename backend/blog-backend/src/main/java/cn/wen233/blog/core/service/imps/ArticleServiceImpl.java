@@ -3,19 +3,24 @@ package cn.wen233.blog.core.service.imps;
 import cn.wen233.blog.common.dtos.PageInfo;
 import cn.wen233.blog.core.model.article.Article;
 import cn.wen233.blog.core.model.article.ArticleVo;
+import cn.wen233.blog.core.model.article.QArticle;
+import cn.wen233.blog.core.model.tag.QTag;
 import cn.wen233.blog.core.model.tag.Tag;
 import cn.wen233.blog.core.repo.ArticleRepository;
-import cn.wen233.blog.core.repo.TagRepository;
 import cn.wen233.blog.core.service.ArticleService;
 import cn.wen233.blog.core.service.TagService;
 import cn.wen233.blog.infrustructure.exception.ModelNotFoundException;
-import lombok.AllArgsConstructor;
+import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import javax.persistence.EntityManager;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,13 +31,30 @@ import java.util.Set;
  * @description:
  */
 @Service
-@AllArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
     private final ArticleRepository repository;
 
     private final TagService tagService;
 
+    private final EntityManager entityManager;
+
+    @Autowired
+    public ArticleServiceImpl(ArticleRepository repository, TagService tagService, EntityManager entityManager) {
+        this.repository = repository;
+        this.tagService = tagService;
+        this.entityManager = entityManager;
+    }
+
+    private JPAQueryFactory jpaQueryFactory;
+
+    /**
+     * 因为factory 依赖于 entityManager
+     */
+    @PostConstruct
+    public void initFactory() {
+        jpaQueryFactory = new JPAQueryFactory(entityManager);
+    }
 
     @Transactional(readOnly = true)
     @Override
@@ -45,6 +67,21 @@ public class ArticleServiceImpl implements ArticleService {
     public PageInfo<ArticleVo> findAll(Pageable pageable) {
         Page<Article> page = repository.findAll(pageable);
         return PageInfo.of(ArticleVo.mapForm(page.getContent()), page);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ArticleVo> findAllByTag(String tagName) {
+        QArticle qArticle = QArticle.article;
+        QTag qTag = QTag.tag;
+        JPAQuery<Article> query = jpaQueryFactory
+                .select(qArticle)
+                .from(qArticle)
+                .where(qArticle.tags.any().name.eq(tagName))
+                .orderBy(QArticle.article.createAt.desc());
+        List<Article> articles = query.fetch();
+        List<ArticleVo> articleVos = ArticleVo.mapForm(articles);
+        return articleVos;
     }
 
     @Transactional(rollbackFor = Exception.class)

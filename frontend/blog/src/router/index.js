@@ -5,6 +5,8 @@ import Time from "../views/Time";
 import About from "../views/About";
 import Tag from "../views/Tag";
 import Article from "../views/Article";
+import Login from "../views/Login";
+import SingleTag from "../views/SingleTag";
 
 Vue.use(Router)
 
@@ -23,14 +25,22 @@ export default new Router({
       component: About
     }, {
       path: '/tag',
-      props: true,
       component: Tag,
       name: 'v-tag'
     }, {
+      path: '/tag/:tagName',
+      component: SingleTag,
+      name: 'v-singleTag',
+      props: true
+    }, {
+      // 需要传送信息时需要打开 props
       path: '/article/:id',
       props: true,
       component: Article,
       name: 'v-article'
+    }, {
+      path: '/login',
+      component: Login
     }
   ]
 })

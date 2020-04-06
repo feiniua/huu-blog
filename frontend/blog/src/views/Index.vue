@@ -1,4 +1,5 @@
 <template>
+<!--  首页-->
     <div id="index">
       <Nav/>
       <img class="heading-img" src="static/img/index.jpg">
@@ -6,6 +7,7 @@
         <div class="article-body" v-for="(article,index) in articles">
           <left-article :article="article"></left-article>
         </div>
+<!--        使用element-ui的分页组件-->
         <el-pagination
           small
           layout="prev, pager, next"
@@ -16,30 +18,35 @@
         >
         </el-pagination>
       </div>
-
+      <Footing/>
     </div>
 </template>
 
 <script>
     import Nav from "../components/Nav";
     import LeftArticle from "../components/LeftArticle";
+    import Footing from "../components/Footing";
+    import UrlInfo from "../config/UrlInfo";
 
     export default {
         name: "index",
         components: {
+          Footing,
           LeftArticle,
           Nav
         },
+        // 当进入这个页面时执行
         beforeRouteEnter: (to,from, next) => {
           console.log("开始获取数据");
           next(vm => vm.getData())
         },
         methods: {
           getData: function () {
-            let that = this
+            let that = this;
+            let url = UrlInfo.url;
             this.axios({
               method: 'get',
-              url: 'http://localhost:8091/api/article/all',
+              url: url + 'api/article/all',
               params: {
                 pageNumber: "0"
               },
@@ -53,9 +60,10 @@
           getPage: function (size) {
             let curNum = size - 1;
             let that = this
+            let url = UrlInfo.url;
             this.axios({
               method: 'get',
-              url: 'http://localhost:8091/api/article/all',
+              url: url + 'api/article/all',
               params: {
                 pageNumber: curNum
               },
@@ -89,7 +97,7 @@
     background-color: #DCDFE6;
     padding-top: 50px;
     padding-bottom: 20px;
-    margin: 60px auto 50px;
+    margin: 60px auto 10px;
     opacity: 0.9;
   }
 </style>
