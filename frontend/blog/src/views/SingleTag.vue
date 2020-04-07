@@ -77,7 +77,7 @@
     position: relative;
     padding-bottom: 120px;
     margin: 0 auto;
-    min-height: 550px;
+    min-height: 440px;
     width: 70%;
     background-color: #DCDFE5;
     top: 80px;
