@@ -64,7 +64,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Transactional(readOnly = true)
     @Override
-    public PageInfo<ArticleVo> findAll(Pageable pageable) {
+    public PageInfo<ArticleVo> findAllPaging(Pageable pageable) {
         Page<Article> page = repository.findAll(pageable);
         return PageInfo.of(ArticleVo.mapForm(page.getContent()), page);
     }
@@ -73,15 +73,25 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleVo> findAllByTag(String tagName) {
         QArticle qArticle = QArticle.article;
-        QTag qTag = QTag.tag;
         JPAQuery<Article> query = jpaQueryFactory
                 .select(qArticle)
                 .from(qArticle)
                 .where(qArticle.tags.any().name.eq(tagName))
                 .orderBy(QArticle.article.createAt.desc());
         List<Article> articles = query.fetch();
-        List<ArticleVo> articleVos = ArticleVo.mapForm(articles);
-        return articleVos;
+        return ArticleVo.mapForm(articles);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ArticleVo> findAllByTime() {
+        QArticle qArticle = QArticle.article;
+        JPAQuery<Article> query = jpaQueryFactory
+                .select(qArticle)
+                .from(qArticle)
+                .orderBy(QArticle.article.createAt.desc());
+        List<Article> articles = query.fetch();
+        return ArticleVo.mapForm(articles);
     }
 
     @Transactional(rollbackFor = Exception.class)

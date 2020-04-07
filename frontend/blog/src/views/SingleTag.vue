@@ -3,8 +3,8 @@
     <div class="wrapper">
       <Nav></Nav>
       <div class="content">
-        <div class="back"><router-link to="/tag"><el-tag class="eltag" type="info">返回</el-tag></router-link></div>
-        <span class="title">{{tagName}}</span>
+        <div class="back"><router-link to="/tag"><el-tag class="eltag" type="infonpm run dev">返回</el-tag></router-link></div>
+        <span class="title"><i class="el-icon-price-tag"></i> {{tagName}}</span>
         <br/>
         <span class="total">total: {{total}}</span>
         <div class="body" v-for="item in message">
@@ -77,7 +77,7 @@
     position: relative;
     padding-bottom: 120px;
     margin: 0 auto;
-    min-height: 150px;
+    min-height: 550px;
     width: 70%;
     background-color: #DCDFE5;
     top: 80px;
@@ -121,6 +121,9 @@
     height: 30px;
     line-height: 30px;
     padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .content .body .article .time {
     font-size: 12px;
@@ -128,6 +131,11 @@
     padding-right: 20px;
     padding-left: 10px;
     padding-bottom: 5px;
+  }
+  li {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .background {
     position: fixed;

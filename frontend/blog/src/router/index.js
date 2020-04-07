@@ -19,7 +19,8 @@ export default new Router({
       component: Index
     }, {
       path: '/time',
-      component: Time
+      component: Time,
+      name: 'v-time'
     }, {
       path: '/about',
       component: About

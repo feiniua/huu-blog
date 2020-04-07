@@ -5,9 +5,11 @@
       <router-link :to="{name: 'v-article', params: {id: article.id}}"><img class="article-img" :src="article.imageAddress"></router-link>
       <div class="article-body">
         <div class="article-heading">
-          <router-link to="/time" class="createTime">{{getDate(article.createAt)}}</router-link>
+          <div class="createTime">
+            <router-link :to="{name: 'v-time'}">{{getDate(article.createAt)}}</router-link>
+          </div>
           <div v-for="tag in article.tags">
-            <router-link :to="{name: 'v-tag', params: {name: tag.name}}"><el-tag class="tag" type="success">{{tag.name}}</el-tag></router-link>
+            <router-link :to="{name : 'v-singleTag', params: {tagName: tag.name}}"><el-tag class="tag" type="success">{{tag.name}}</el-tag></router-link>
           </div>
         </div>
         <h2 class="title"><router-link :to="{name: 'v-article', params: {id: article.id}}">{{article.title}}</router-link></h2>
@@ -95,10 +97,10 @@
     text-overflow: ellipsis;
   }
   a {
-    color: rgba(255, 68, 177, 0.5);
+    color: rgba(63, 18, 41, 0.5);
   }
   a:hover {
-    color: rgba(122, 255, 133, 0.47);
+    color: rgba(74, 147, 74, 0.47);
   }
   a:active {
     color: #92dfff;

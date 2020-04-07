@@ -2,8 +2,9 @@
 <!--  脚部组件-->
   <div class="footing">
     <div class="wrapper">
-      <span><router-link to="/login">wenwuyou@foxmail.com</router-link></span>
+      <span class="title"><router-link to="/login"><i class="el-icon-star-off"></i>wenwuyou@foxmail.com</router-link></span>
       <br/>
+      <i class="el-icon-time"></i>
       <span class="time">{{date}}</span>
     </div>
   </div>
@@ -57,6 +58,9 @@
     height: 55px;
     width: 100%;
     opacity: 0.9;
+  }
+  .wrapper .title {
+    font-size: 14px;
   }
   .wrapper .time {
     color: #515d60;

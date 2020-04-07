@@ -5,9 +5,9 @@
       <Nav></Nav>
       <div class="content">
         <div class="title">
-          <p class="title-1">标签</p>
+          <p class="title-1"><i class="el-icon-collection-tag"></i> 标签</p>
           <br/>
-          <p>total: <router-link to="#">{{tagTotal}}</router-link></p>
+          <p class="total">Total: <router-link to="#">{{tagTotal}}</router-link></p>
         </div>
         <div class="body">
           <span v-for="item in message.data">
@@ -62,7 +62,7 @@
     width: 70%;
     min-height: 550px;
     background-color: #DCDFE6;
-    top: 100px;
+    top: 80px;
     margin: 0 auto 80px;
     opacity: 0.9;
     border-radius: 5px;
@@ -73,6 +73,9 @@
   }
   .title .title-1 {
     font-size: 19px;
+  }
+  .title .total {
+    font-size: 15px;
   }
   .wrapper .content .body {
     width: 40%;

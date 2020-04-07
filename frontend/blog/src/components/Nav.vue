@@ -2,10 +2,10 @@
 <!--  导航栏-->
   <div id="nav">
       <div class="nav">
-        <a href="/"><span>Home</span></a>
-        <a href="/tag"><span>Tag</span></a>
-        <a href="/time"><span>Time</span></a>
-        <a href="/about"><span>About</span></a>
+        <a href="/"><span><i class="el-icon-house"></i>Home</span></a>
+        <a href="/tag"><span><i class="el-icon-collection-tag"></i>Tag</span></a>
+        <a href="/time"><span><i class="el-icon-date"></i>Time</span></a>
+        <a href="/about"><span><i class="el-icon-star-off"></i>About</span></a>
       </div>
   </div>
 </template>

@@ -39,15 +39,20 @@ public class ArticleApi {
      * @return
      */
     @GetMapping("/all")
-    public RestInfo findAll(@PageableDefault(value = 8, sort = {"createAt"}, direction = Sort.Direction.DESC)
+    public RestInfo findAllPaging(@PageableDefault(value = 8, sort = {"createAt"}, direction = Sort.Direction.DESC)
                                         Pageable pageable, Integer pageNumber) {
         Pageable pageable1 = PageRequest.of(pageNumber, pageable.getPageSize(), pageable.getSort());
-        return RestInfo.success(service.findAll(pageable1));
+        return RestInfo.success(service.findAllPaging(pageable1));
     }
 
     @GetMapping("/byTagName")
     public RestInfo findAllByTag(@RequestParam String tagName) {
         return RestInfo.success(service.findAllByTag(tagName));
+    }
+
+    @GetMapping("/byTime")
+    public RestInfo findAllByTime() {
+        return RestInfo.success(service.findAllByTime());
     }
 
     /**

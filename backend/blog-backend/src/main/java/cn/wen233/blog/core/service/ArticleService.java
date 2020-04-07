@@ -23,14 +23,25 @@ public interface ArticleService {
 
 
     /**
-     * 首页分页数据
+     * 分页查询
      * @param pageable
      * @return
      */
-    PageInfo<ArticleVo> findAll(Pageable pageable);
+    PageInfo<ArticleVo> findAllPaging(Pageable pageable);
 
 
+    /**
+     * 查询该标签的所有文章
+     * @param tagName
+     * @return
+     */
     List<ArticleVo> findAllByTag(String tagName);
+
+    /**
+     * 查询所有文章并通过time排序
+     * @return
+     */
+    List<ArticleVo> findAllByTime();
 
     /**
      * 保存新文章

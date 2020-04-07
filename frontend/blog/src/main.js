@@ -2,6 +2,8 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+
+// router
 import router from './router'
 
 // axios
@@ -31,3 +33,8 @@ new Vue({
   components: { App },
   template: '<App/>'
 })
+
+// 页面跳转时自动到顶部
+router.afterEach((to, from, next) => {
+  window.scrollTo(0, 0)
+});
