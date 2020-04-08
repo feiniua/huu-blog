@@ -1,5 +1,6 @@
 package cn.wen233.blog.core.repo;
 
+import cn.wen233.blog.common.core.repo.BaseRepository;
 import cn.wen233.blog.core.model.article.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
@@ -11,5 +12,5 @@ import org.springframework.stereotype.Repository;
  * @description:
  */
 @Repository
-public interface ArticleRepository extends JpaRepository<Article, String>, QuerydslPredicateExecutor<Article> {
+public interface ArticleRepository extends BaseRepository<Article> {
 }

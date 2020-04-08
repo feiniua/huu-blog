@@ -7,6 +7,8 @@ import Tag from "../views/Tag";
 import Article from "../views/Article";
 import Login from "../views/Login";
 import SingleTag from "../views/SingleTag";
+import Backend from "../views/Backend";
+import NotFound from "../views/NotFound";
 
 Vue.use(Router)
 
@@ -42,6 +44,14 @@ export default new Router({
     }, {
       path: '/login',
       component: Login
+    }, {
+      props: true,
+      path: '/backend',
+      component: Backend,
+      name: 'v-backend'
+    }, {
+      path: '/**',
+      component: NotFound
     }
   ]
 })

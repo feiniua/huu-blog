@@ -18,8 +18,12 @@ import 'element-ui/lib/theme-chalk/index.css'
 import MavonEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 
+// md5
+import md5 from 'js-md5'
 
 Vue.config.productionTip = false
+
+Vue.prototype.md5 = md5
 
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)

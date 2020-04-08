@@ -7,13 +7,13 @@
           </div>
           <label class="username">
             <i class="el-icon-user"></i>
-            <input type="text" name="username" placeholder="Username"/>
+            <input type="text" name="username" placeholder="Username" v-model="username"/>
           </label>
           <label class="password">
             <i class="el-icon-edit"></i>
-            <input type="password" name="password" placeholder="Password"/>
+            <input type="password" name="password" placeholder="Password" v-model="password"/>
           </label>
-          <button class="btn">登录</button>
+          <button class="btn" v-on:click="login()">登录</button>
           <Footing class="footing"></Footing>
         </div>
         <img class="background" src="../../static/img/login.jpg"/>
@@ -23,9 +23,51 @@
 
 <script>
     import Footing from "../components/Footing";
+    import UrlInfo from "../config/UrlInfo";
+    import Marked from "marked";
     export default {
         name: "Login",
-      components: {Footing}
+        components: {Footing},
+        methods: {
+          login: function () {
+            let that = this;
+            let url = UrlInfo.url;
+            let msg;
+            this.axios({
+              method: 'get',
+              url: url + 'api/login',
+              params: {
+                username: that.username,
+                // 密码使用md5加密
+                password: that.md5(that.password)
+              }
+            }).then(function (response) {
+              that.message = response.data;
+              msg = response.data.msg;
+              // 当返回状态为false时 弹出提示框；true时跳转页面
+              if (!that.message.success) {
+                that.$alert(msg, '错误', {
+                  confirmButtonText: '确定',
+                  callback: action => {
+                    that.$message({
+                      type: 'info',
+                      message: `warn: 请重新输入 `
+                    });
+                  }
+                });
+              } else {
+                that.$router.push({name:'v-backend', params: {name: that.message.data}})
+              }
+            });
+          }
+        },
+        data() {
+          return {
+            message: "",
+            username: "",
+            password: ""
+          }
+        }
     }
 </script>
 

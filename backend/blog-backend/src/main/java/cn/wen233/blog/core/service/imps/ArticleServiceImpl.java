@@ -56,6 +56,7 @@ public class ArticleServiceImpl implements ArticleService {
         jpaQueryFactory = new JPAQueryFactory(entityManager);
     }
 
+
     @Transactional(readOnly = true)
     @Override
     public Article findOne(String id) {

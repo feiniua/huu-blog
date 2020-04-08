@@ -41,6 +41,9 @@ public class ArticleApi {
     @GetMapping("/all")
     public RestInfo findAllPaging(@PageableDefault(value = 8, sort = {"createAt"}, direction = Sort.Direction.DESC)
                                         Pageable pageable, Integer pageNumber) {
+        if (pageNumber == null) {
+            pageNumber = 0;
+        }
         Pageable pageable1 = PageRequest.of(pageNumber, pageable.getPageSize(), pageable.getSort());
         return RestInfo.success(service.findAllPaging(pageable1));
     }
@@ -79,6 +82,21 @@ public class ArticleApi {
         model.setContent(content);
         model.setImageAddress(imageAddress);
         return RestInfo.success(service.insert(model, tagsId));
+    }
+
+    @PutMapping("/{id}")
+    public RestInfo editArticle(@PathVariable("id") String id) {
+        return RestInfo.success(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public RestInfo deleteArticle(@PathVariable("id") String id) {
+        return RestInfo.success(id);
+    }
+
+    @PostMapping("/{id}")
+    public RestInfo etArticle(@PathVariable("id") String id) {
+        return RestInfo.success(id);
     }
 
 //    @PostMapping("/ajax")

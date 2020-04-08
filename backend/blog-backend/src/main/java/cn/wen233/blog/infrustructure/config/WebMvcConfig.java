@@ -13,7 +13,7 @@ import org.springframework.web.filter.CorsFilter;
  *      添加Filter处理跨域问题
  */
 @Configuration
-public class CorsConfig{
+public class WebMvcConfig {
 
     private CorsConfiguration corsConfig() {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
@@ -34,4 +34,5 @@ public class CorsConfig{
         source.registerCorsConfiguration("/**", corsConfig());
         return new CorsFilter(source);
     }
+
 }

@@ -15,9 +15,13 @@
         name: "Footing",
         // 设置计时器
         mounted() {
-          setInterval(() => {
+          this.clear=setInterval(() => {
             this.initDate();
           }, 1000)
+        },
+        // 页面关闭时清除计时器
+        beforeDestroy() {
+          clearInterval(this.clear);
         },
         methods: {
           initDate: function () {

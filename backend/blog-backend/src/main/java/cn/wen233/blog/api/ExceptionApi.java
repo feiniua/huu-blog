@@ -2,6 +2,8 @@ package cn.wen233.blog.api;
 
 import cn.wen233.blog.infrustructure.exception.ModelNotFoundException;
 import cn.wen233.blog.common.restful.RestInfo;
+import cn.wen233.blog.infrustructure.exception.PermissionException;
+import org.apache.shiro.authc.AccountException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,5 +38,15 @@ public class ExceptionApi {
             return RestInfo.fail(String.valueOf(error.getDefaultMessage()));
         }
         return RestInfo.fail("错误");
+    }
+
+    @ExceptionHandler(value = AccountException.class)
+    public RestInfo accountException(AccountException e) {
+        return RestInfo.fail(e.getMessage());
+    }
+
+    @ExceptionHandler(value = PermissionException.class)
+    public RestInfo permissionException(PermissionException e) {
+        return RestInfo.fail(e.getMessage());
     }
 }

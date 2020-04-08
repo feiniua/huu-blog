@@ -1,5 +1,5 @@
 # huu-blog
-个人博客，前后端分离
+个人博客，采用vue + springboot前后端分离实现，springboot只提供数据接口。
 
 ***[TOC]***
 ## 前端
@@ -14,6 +14,10 @@
 * element-ui
 
 * mavon-editor
+
+* marked
+
+* js-md5
 
 **项目结构**
 
@@ -40,3 +44,13 @@
 #### 归档页
 ![image](https://github.com/feiniua/huu-blog/blob/master/md_image/time.png)
 ## 后端
+
+
+## 遇到问题
+
+* vue 整合axios后如何发送ajax请求
+* 每篇文章图片背景如何保存
+* 新建文章如何在内容中添加图片
+* 分页的处理
+* 后端权限shiro
+* vue 如何登陆后跳转并传参

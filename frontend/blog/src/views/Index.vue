@@ -8,6 +8,7 @@
           <left-article :article="article"></left-article>
         </div>
 <!--        使用element-ui的分页组件-->
+<!--        current-change绑定点击时执行的方法-->
         <el-pagination
           small
           layout="prev, pager, next"
@@ -57,6 +58,7 @@
               that.pageNumber = response.data.data.pageNumber;
             })
           },
+          // 点击分页组件时传入一个页码 然后发送ajax请求
           getPage: function (size) {
             let curNum = size - 1;
             let that = this
