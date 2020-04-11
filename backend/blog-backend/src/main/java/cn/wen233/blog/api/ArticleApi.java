@@ -91,7 +91,8 @@ public class ArticleApi {
 
     @DeleteMapping("/{id}")
     public RestInfo deleteArticle(@PathVariable("id") String id) {
-        return RestInfo.success(id);
+        service.delete(id);
+        return RestInfo.success();
     }
 
     @PostMapping("/{id}")

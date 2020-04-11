@@ -153,7 +153,7 @@
     color: #2c7181;
   }
   a:hover {
-    color: #000;
+    color: #5e2424;
   }
   a:active {
     color: #acffde;

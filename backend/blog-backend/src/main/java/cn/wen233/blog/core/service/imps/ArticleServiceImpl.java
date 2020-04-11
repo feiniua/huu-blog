@@ -108,6 +108,12 @@ public class ArticleServiceImpl implements ArticleService {
         return repository.save(entity);
     }
 
+    @Override
+    public void delete(String id) {
+        Article entity = this.findOne(id);
+        repository.delete(entity);
+    }
+
     /**
      * 将Tag id数组转为Set<Tag>
      * @param tagsId

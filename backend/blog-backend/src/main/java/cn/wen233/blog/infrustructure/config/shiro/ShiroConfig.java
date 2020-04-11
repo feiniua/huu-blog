@@ -57,9 +57,9 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         // 必须设置 SecurityManager
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-        shiroFilterFactoryBean.setLoginUrl("/notLogin");
         //        shiroFilterFactoryBean.setSuccessUrl("/success");
         shiroFilterFactoryBean.setUnauthorizedUrl("/notPerms");
+        shiroFilterFactoryBean.setLoginUrl("/notLogin");
 
         /**
          * 添加自定义拦截器 对请求方法的不同进行拦截

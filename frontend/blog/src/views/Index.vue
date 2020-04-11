@@ -14,7 +14,7 @@
           layout="prev, pager, next"
           :page-size="8"
           :total="totalElements"
-          :background=true
+          :hide-on-single-page=true
           @current-change="getPage"
         >
         </el-pagination>
@@ -74,7 +74,6 @@
               that.totalElements = response.data.data.totalElements;
               that.totalPages = response.data.data.totalPages;
               that.pageNumber = response.data.data.pageNumber;
-              console.log(that.pageNumber);
             })
           }
         },

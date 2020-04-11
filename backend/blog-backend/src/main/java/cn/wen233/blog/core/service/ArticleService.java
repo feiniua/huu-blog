@@ -50,4 +50,10 @@ public interface ArticleService {
      * @return
      */
     Article insert(Article model, List<String> tagsId);
+
+    /**
+     * 删除文章
+     * @param id
+     */
+    void delete(String id);
 }

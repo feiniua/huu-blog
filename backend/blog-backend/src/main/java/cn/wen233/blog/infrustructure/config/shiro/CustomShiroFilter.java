@@ -1,14 +1,18 @@
 package cn.wen233.blog.infrustructure.config.shiro;
 
 import cn.wen233.blog.common.restful.RestInfo;
+import cn.wen233.blog.core.model.auth.User;
 import cn.wen233.blog.infrustructure.exception.PermissionException;
 import lombok.SneakyThrows;
+import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.apache.shiro.web.util.WebUtils;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author: huu
@@ -31,7 +35,6 @@ public class CustomShiroFilter extends FormAuthenticationFilter {
     private final static String PUT = "PUT";
     private final static String DELETE = "DELETE";
 
-    @SneakyThrows
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
@@ -41,7 +44,7 @@ public class CustomShiroFilter extends FormAuthenticationFilter {
         }
 
         Subject subject = getSubject(request, response);
-        System.out.println(subject.isPermitted("edit"));
+        System.out.println(subject.isPermitted("delete"));
         if (PUT.equals(method)) {
             if (subject.isPermitted("edit")) {
                 return true;
@@ -65,5 +68,18 @@ public class CustomShiroFilter extends FormAuthenticationFilter {
         }
 
         return super.isAccessAllowed(request, response, mappedValue);
+    }
+
+    @Override
+    protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request,
+                                     ServletResponse response) throws Exception {
+        //获取已登录的用户信息
+        User activeUser = (User) subject.getPrincipal();
+        //获取session
+        HttpServletRequest httpServletRequest = WebUtils.toHttp(request);
+        HttpSession session = httpServletRequest.getSession();
+        //把用户信息保存到session
+        session.setAttribute("activeUser", activeUser);
+        return super.onLoginSuccess(token, subject, request, response);
     }
 }

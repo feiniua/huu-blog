@@ -41,8 +41,10 @@
 #### 标签页
 ![image](https://github.com/feiniua/huu-blog/blob/master/md_image/tag.png)
 ![image](https://github.com/feiniua/huu-blog/blob/master/md_image/singletag.png)
+
 #### 归档页
 ![image](https://github.com/feiniua/huu-blog/blob/master/md_image/time.png)
+
 ## 后端
 
 
@@ -54,3 +56,8 @@
 * 分页的处理
 * 后端权限shiro
 * vue 如何登陆后跳转并传参
+* vue使用sessionStorage保存登录后的返回信息，登录后即可跳过登录页
+* vue发送的请求不带cookie，对于后台来说就像是一个新客户端。无法获得权限。
+	* 解决：main.js中添加axios.defaults.withCredentials=true;
+* 发送请求返回权限失败500使用catch
+	* 解决：axios(...).then(...).catch(function(error) {...})

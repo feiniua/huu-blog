@@ -53,6 +53,7 @@
     padding: 50px;
     margin: 0 auto 10px;
     border-radius: 20px;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
   }
   .article-img {
     width: 55%;

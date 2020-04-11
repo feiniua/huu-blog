@@ -34,11 +34,33 @@ Vue.use(MavonEditor)
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {App},
   template: '<App/>'
 })
+
+axios.defaults.withCredentials=true;
 
 // 页面跳转时自动到顶部
 router.afterEach((to, from, next) => {
   window.scrollTo(0, 0)
 });
+
+
+// 路由守卫
+router.beforeEach((to, from, next) => {
+  // 判断是否需要登录权限
+  if (to.matched.some(res => res.meta.requireAuth)) {
+    // 判断是否登录
+    if (sessionStorage.getItem('username')) {
+      //有登录名称进行下一步路由
+      next()
+    } else {
+      // 没登录则跳转到登录界面
+      next({
+        path: '/login'
+      })
+    }
+  } else {
+    next()
+  }
+})
