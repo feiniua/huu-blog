@@ -20,7 +20,7 @@
         <div class="body" v-html="priview"></div>
       </div>
       <Footing class="footing"></Footing>
-      <img :src="message.imageAddress"/>
+      <img class="background-img" :src="message.imageAddress"/>
     </div>
   </div>
 </template>
@@ -45,8 +45,13 @@
         method: 'get',
         url: url + '/api/article/' + id,
       }).then(function (response) {
+        Marked.setOptions(
+
+        )
         that.message = response.data.data;
-        that.priview = Marked(response.data.data.content)
+        that.priview = Marked(response.data.data.content).replace("<img",
+          '<img style="width:400px;height:250px" ');
+        console.log(that.priview)
       });
     },
     data() {
@@ -74,7 +79,7 @@
     position: relative;
   }
 
-  img {
+  .background-img {
     position: fixed;
     top: 0;
     left: 0;
@@ -82,7 +87,6 @@
     width: 100%;
     height: 110%;
   }
-
   .content {
     text-align: left;
     position: relative;
@@ -92,8 +96,8 @@
     background-color: #EBEEF5;
     top: 80px;
     left: 10%;
-    opacity: 0.9;
-    padding: 20px;
+    opacity: 0.95;
+    padding: 30px;
     border-radius: 50px;
     margin-bottom: 20px;
   }
@@ -131,7 +135,10 @@
     display: inline-block;
     clear: both;
   }
-
+  .body p {
+    width: 200px;
+    height: 150px;
+  }
   a {
     color: rgba(255, 68, 177, 0.5);
   }

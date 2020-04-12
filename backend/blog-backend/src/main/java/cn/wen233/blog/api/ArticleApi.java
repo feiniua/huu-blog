@@ -14,6 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -68,8 +69,8 @@ public class ArticleApi {
      * @throws Exception
      */
     @PostMapping("")
-    public RestInfo save(@RequestParam @Validated String title, @RequestParam String content,
-                         @RequestParam(name = "fileName")MultipartFile file,
+    public RestInfo save(@RequestParam String title, @RequestParam String content,
+                         @RequestParam(name = "file")MultipartFile file,
                          @RequestParam @Nullable List<String> tagsId) throws Exception {
         if (file.isEmpty()) {
             return RestInfo.fail("上传失败图片为空");

@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ImageApi {
 
     @PostMapping("")
-    public RestInfo fileUpload(@RequestParam("fileName") MultipartFile file) throws Exception {
+    public RestInfo fileUpload(@RequestParam("file") MultipartFile file) throws Exception {
         if (file.isEmpty()) {
             return RestInfo.fail("上传失败图片为空");
         }

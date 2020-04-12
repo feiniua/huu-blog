@@ -35,15 +35,8 @@
       if (sessionStorage.getItem('username') !== null) {
         this.$router.push({name: 'v-backend'});
       }
-      // 监听回车事件
-      window.addEventListener('keydown',this.keyDown);
     },
     methods: {
-      keyDown: function(e) {
-        if (e.keyCode === 13) {
-          this.login();
-        }
-      },
       login: function () {
         let that = this;
         let url = UrlInfo.url;
