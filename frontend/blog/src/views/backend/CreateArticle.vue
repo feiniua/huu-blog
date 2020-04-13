@@ -2,26 +2,44 @@
   <div class="createArticle">
     <div class="wrapper">
       <div class="heading">
-        <span>
+        <div class="title0">
+          <span>
           <i class="el-icon-close" style="color: #ff5353" v-if="title.length === 0"></i>
           <i class="el-icon-check" style="color: #369d49" v-else></i>
-          Title: </span><input class="title" type="text" v-model="title"></input>
-      </div>
-      <mavon-editor v-model="content"
-                    ref="md"
-                    @imgAdd="$imgAdd"
-                    @imgDel="$imgDel">
-
-      </mavon-editor>
-      <div class="footing">
-        <button class="tagBtn">文章标签</button>
-        <br/>
+          Title:
+        </span>
+          <input class="title" type="text" v-model="title"></input>
+        </div>
+        <div class="tag">
+          <span>标签</span>
+          <el-select
+            v-model="tagValue"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            placeholder="请选择文章标签">
+            <el-option
+              v-for="item in tags"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id">
+            </el-option>
+          </el-select>
+        </div>
         <div class="upload">
           <input class="background-img" type="file" name="file" @change="changeFile($event)">
           <i class="el-icon-close" style="color: #ff5353" v-if="this.file.length === 0"></i>
           <i class="el-icon-check" style="color: #369d49" v-else></i>
           <span>{{fileSpan}}</span>
         </div>
+      </div>
+      <mavon-editor v-model="content"
+                    ref="md"
+                    @imgAdd="$imgAdd"
+                    @imgDel="$imgDel">
+      </mavon-editor>
+      <div class="footing">
         <button class="submit" v-on:click="createArticle">提交</button>
       </div>
     </div>
@@ -34,14 +52,40 @@
 
   export default {
     name: "CreateArticle",
+    created() {
+      let that = this;
+      this.axios({
+        method: "get",
+        url: UrlInfo.url + "api/tag/all"
+      }).then(function (response) {
+        that.tags = response.data.data;
+      })
+    },
     methods: {
       createArticle: function () {
+        if (this.title.length === 0) {
+          this.$notify({
+            title: '警告',
+            message: '标题不能为空',
+            type: 'warning'
+          });
+          return;
+        }
+        if (this.file.length === 0) {
+          this.$notify({
+            title: '警告',
+            message: '背景图片不能为空',
+            type: 'warning'
+          });
+          return;
+        }
+        console.log(this.file)
         let that = this;
         let formData = new FormData();
         formData.append('file', that.file);
         formData.append('title', that.title);
         formData.append('content', that.content);
-        console.log(that.file)
+        formData.append('tagsId', that.tagValue);
         this.axios({
           method: 'post',
           data: formData,
@@ -61,6 +105,7 @@
           })
         })
       },
+      // 选择了背景图片后自动改变file值
       changeFile: function (e) {
         this.file = e.target.files[0];
         this.fileSpan = e.target.files[0].name;
@@ -93,7 +138,9 @@
         content: "",
         title: "",
         file: "",
-        fileSpan: "背景图片"
+        fileSpan: "背景图片",
+        tags: {},
+        tagValue: []
       }
     }
   }
@@ -126,7 +173,7 @@
   .heading {
     position: relative;
     top: -10px;
-    left: -400px;
+    display: flex;
   }
   .title {
     outline: none;
@@ -143,15 +190,15 @@
   .background-img {
     outline: none;
     border: 0;
-    width: 63px;
+    width: 80px;
     overflow: hidden;
     opacity: 0;
     background-color: #00000060;
     position: absolute;
   }
   .upload {
-    margin-top: 10px;
-    margin-left: 20px;
+    position: absolute;
+    left: 300px;
   }
   .upload span {
     color: #DCDFE6;
@@ -163,11 +210,16 @@
     color: #7a6ba0;
     background-color: #DCDFE6;
   }
-  .tagBtn {
+  .tag {
     position: relative;
-    left: 820px;
-    top: 20px;
+    left: 500px;
+    top: -5px;
     font-size: 16px;
+  }
+  .tag span {
+    background-color: #7a6ba0;
+    padding: 5px;
+    color: #DCDFE6;
   }
   .submit {
     position: relative;

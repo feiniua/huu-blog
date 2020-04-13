@@ -4,10 +4,10 @@ import cn.wen233.blog.common.dtos.PageInfo;
 import cn.wen233.blog.core.model.article.Article;
 import cn.wen233.blog.core.model.article.ArticleVo;
 import cn.wen233.blog.core.model.article.QArticle;
-import cn.wen233.blog.core.model.tag.QTag;
 import cn.wen233.blog.core.model.tag.Tag;
 import cn.wen233.blog.core.repo.ArticleRepository;
 import cn.wen233.blog.core.service.ArticleService;
+import cn.wen233.blog.core.service.ImageService;
 import cn.wen233.blog.core.service.TagService;
 import cn.wen233.blog.infrustructure.exception.ModelNotFoundException;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -18,10 +18,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -37,12 +39,15 @@ public class ArticleServiceImpl implements ArticleService {
 
     private final TagService tagService;
 
+    private final ImageService imageService;
+
     private final EntityManager entityManager;
 
     @Autowired
-    public ArticleServiceImpl(ArticleRepository repository, TagService tagService, EntityManager entityManager) {
+    public ArticleServiceImpl(ArticleRepository repository, TagService tagService, ImageService imageService, EntityManager entityManager) {
         this.repository = repository;
         this.tagService = tagService;
+        this.imageService = imageService;
         this.entityManager = entityManager;
     }
 
@@ -57,12 +62,22 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
 
+    /**
+     * 查询单篇文章
+     * @param id
+     * @return
+     */
     @Transactional(readOnly = true)
     @Override
     public Article findOne(String id) {
         return repository.findById(id).orElseThrow(() -> new ModelNotFoundException("未找到指定id的Article"));
     }
 
+    /**
+     * 分页查询
+     * @param pageable
+     * @return
+     */
     @Transactional(readOnly = true)
     @Override
     public PageInfo<ArticleVo> findAllPaging(Pageable pageable) {
@@ -70,6 +85,11 @@ public class ArticleServiceImpl implements ArticleService {
         return PageInfo.of(ArticleVo.mapForm(page.getContent()), page);
     }
 
+    /**
+     * 通过tag查询所有文章
+     * @param tagName
+     * @return
+     */
     @Transactional(readOnly = true)
     @Override
     public List<ArticleVo> findAllByTag(String tagName) {
@@ -83,6 +103,10 @@ public class ArticleServiceImpl implements ArticleService {
         return ArticleVo.mapForm(articles);
     }
 
+    /**
+     * 通过时间查询所有文章
+     * @return
+     */
     @Transactional(readOnly = true)
     @Override
     public List<ArticleVo> findAllByTime() {
@@ -95,9 +119,21 @@ public class ArticleServiceImpl implements ArticleService {
         return ArticleVo.mapForm(articles);
     }
 
+    /**
+     * 新建文章
+     * @param model
+     * @param tagsId
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Article insert(Article model, List<String> tagsId) {
+    public Article insert(Article model, List<String> tagsId, MultipartFile file) throws Exception {
+
+        // 上传图片
+        String imageAddress = imageService.uploadImage(file);
+
         Set<Tag> tags = byIdToTag(tagsId);
 
         Article entity = new Article();
@@ -105,7 +141,27 @@ public class ArticleServiceImpl implements ArticleService {
         if (tags != null && tags.size() != 0) {
             entity.setTags(tags);
         }
+        entity.setImageAddress(imageAddress);
         return repository.save(entity);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Article edit(String id, Article model, List<String> tagsId, MultipartFile file) throws Exception {
+        Set<Tag> tagModels = byIdToTag(tagsId);
+
+        Article entity = findOne(id);
+        Set<Tag> tagEntitys = entity.getTags();
+        // 基础字段赋值
+        entity.setTitle(model.getTitle());
+        entity.setContent(model.getContent());
+        // 在交集中添加model中有的
+        tagSet(tagModels, tagEntitys);
+        if (file != null) {
+            String imageAddress = imageService.uploadImage(file);
+            entity.setImageAddress(imageAddress);
+        }
+        return entity;
     }
 
     @Override
@@ -129,5 +185,22 @@ public class ArticleServiceImpl implements ArticleService {
             tags.add(entity);
         }
         return tags;
+    }
+
+    /**
+     * 先取model和entity的交集，然后去出model没有的
+     * @param tagModels
+     * @param tagEntitys
+     */
+    private void tagSet(Set<Tag> tagModels, Set<Tag> tagEntitys) {
+        // 先将model中有的添加
+        for (Tag tag : tagModels) {
+            if (tagEntitys.contains(tag)) {
+                continue;
+            }
+            tagEntitys.add(tag);
+        }
+        // 取出entity中有 model中没有的
+        tagEntitys.removeIf(tag -> !tagModels.contains(tag));
     }
 }

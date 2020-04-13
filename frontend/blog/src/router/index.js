@@ -77,6 +77,11 @@ export default new Router({
           path: '/backend/article/create',
           component: CreateArticle,
           name: 'vb-createArticle'
+        },
+        {
+          path: '/backend/article/:id',
+          component: EditArticle,
+          name: 'vb-editArticle'
         }
       ]
     }, {

@@ -48,16 +48,23 @@
 ## 后端
 
 
-## 遇到问题
+## 日志
 
-* vue 整合axios后如何发送ajax请求
-* 每篇文章图片背景如何保存
-* 新建文章如何在内容中添加图片
-* 分页的处理
-* 后端权限shiro
-* vue 如何登陆后跳转并传参
-* vue使用sessionStorage保存登录后的返回信息，登录后即可跳过登录页
-* vue发送的请求不带cookie，对于后台来说就像是一个新客户端。无法获得权限。
-	* 解决：main.js中添加axios.defaults.withCredentials=true;
-* 发送请求返回权限失败500使用catch
-	* 解决：axios(...).then(...).catch(function(error) {...})
+* 4.4
+	* vue 整合axios后如何发送ajax请求
+	* 每篇文章图片背景如何保存
+* 4.5
+	* 分页的处理
+* 4.8
+	* 后端权限shiro
+* 4.11
+	* vue 如何登陆后跳转并传参
+	* vue使用sessionStorage保存登录后的返回信息，登录后即可跳过登录页
+	* vue发送的请求不带cookie，对于后台来说就像是一个新客户端。无法获得权限。
+		* 解决：main.js中添加axios.defaults.withCredentials=true;
+	* 发送请求返回权限失败500使用catch
+		* 解决：axios(...).then(...).catch(function(error) {...})
+* 4.12
+	* axios使用FormData()传送file文件
+	* 新建文章时如何往内容中插入图片
+	* 插入文章的图片显示出来过大未设置格式

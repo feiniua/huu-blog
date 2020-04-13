@@ -3,6 +3,7 @@ package cn.wen233.blog.api;
 import cn.wen233.blog.infrustructure.exception.ModelNotFoundException;
 import cn.wen233.blog.common.restful.RestInfo;
 import cn.wen233.blog.infrustructure.exception.PermissionException;
+import cn.wen233.blog.infrustructure.exception.UploadException;
 import org.apache.shiro.authc.AccountException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -47,6 +48,11 @@ public class ExceptionApi {
 
     @ExceptionHandler(value = PermissionException.class)
     public RestInfo permissionException(PermissionException e) {
+        return RestInfo.fail(e.getMessage());
+    }
+
+    @ExceptionHandler(value = UploadException.class)
+    public RestInfo uploadException(UploadException e) {
         return RestInfo.fail(e.getMessage());
     }
 }

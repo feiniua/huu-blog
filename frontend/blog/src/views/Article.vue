@@ -49,8 +49,8 @@
 
         )
         that.message = response.data.data;
-        that.priview = Marked(response.data.data.content).replace("<img",
-          '<img style="width:400px;height:250px" ');
+        that.priview = Marked(response.data.data.content).replace(/(<img)/g,
+          '<img style="width:420px;height:250px;display:block;" ');
         console.log(that.priview)
       });
     },

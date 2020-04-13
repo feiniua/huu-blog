@@ -49,6 +49,11 @@ public class ArticleApi {
         return RestInfo.success(service.findAllPaging(pageable1));
     }
 
+    /**
+     * 通过tag 查询文章
+     * @param tagName
+     * @return
+     */
     @GetMapping("/byTagName")
     public RestInfo findAllByTag(@RequestParam String tagName) {
         return RestInfo.success(service.findAllByTag(tagName));
@@ -72,22 +77,21 @@ public class ArticleApi {
     public RestInfo save(@RequestParam String title, @RequestParam String content,
                          @RequestParam(name = "file")MultipartFile file,
                          @RequestParam @Nullable List<String> tagsId) throws Exception {
-        if (file.isEmpty()) {
-            return RestInfo.fail("上传失败图片为空");
-        }
-        String fileName = file.getOriginalFilename();
-        String imageAddress = QiNiuUtils.updateFile(file, fileName);
-
         Article model = new Article();
         model.setTitle(title);
         model.setContent(content);
-        model.setImageAddress(imageAddress);
-        return RestInfo.success(service.insert(model, tagsId));
+        return RestInfo.success(service.insert(model, tagsId, file));
     }
 
     @PutMapping("/{id}")
-    public RestInfo editArticle(@PathVariable("id") String id) {
-        return RestInfo.success(id);
+    public RestInfo editArticle(@PathVariable("id") String id,
+                                @RequestParam String title, @RequestParam String content,
+                                @RequestParam(name = "file") @Nullable MultipartFile file,
+                                @RequestParam @Nullable List<String> tagsId) throws Exception {
+        Article model = new Article();
+        model.setTitle(title);
+        model.setContent(content);
+        return RestInfo.success(service.edit(id, model, tagsId, file));
     }
 
     @DeleteMapping("/{id}")
@@ -96,10 +100,6 @@ public class ArticleApi {
         return RestInfo.success();
     }
 
-    @PostMapping("/{id}")
-    public RestInfo etArticle(@PathVariable("id") String id) {
-        return RestInfo.success(id);
-    }
 
 //    @PostMapping("/ajax")
 //    public RestInfo save(@RequestBody Article model) {

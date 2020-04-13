@@ -92,17 +92,17 @@
   .wrapper .content .body {
     position: relative;
     top: 50px;
+    left: 78px;
     width: 50%;
     margin: 0 auto;
     display: flex;
     padding-top: 5px;
-    height: 40px;
-    border-left: #75428a solid 3px;
-    border-bottom: #2c2f6e dashed 1px;
+    padding-left: 100px;
+    height: 50px;
+    border-left: #63656a solid 5px;
   }
   .wrapper .content .body:hover {
-    border-left: #416b52 solid 3px;
-    border-bottom: #2b6b35 dotted 1px;
+    border-left: #416b52 solid 5px;
   }
   .body li {
     white-space: nowrap;

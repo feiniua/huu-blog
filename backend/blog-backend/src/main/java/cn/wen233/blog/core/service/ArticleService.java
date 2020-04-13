@@ -4,6 +4,7 @@ import cn.wen233.blog.common.dtos.PageInfo;
 import cn.wen233.blog.core.model.article.Article;
 import cn.wen233.blog.core.model.article.ArticleVo;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -47,9 +48,13 @@ public interface ArticleService {
      * 保存新文章
      * @param model
      * @param tagsId
+     * @param file
      * @return
+     * @throws Exception
      */
-    Article insert(Article model, List<String> tagsId);
+    Article insert(Article model, List<String> tagsId, MultipartFile file) throws Exception;
+
+    Article edit(String id, Article model, List<String> tagsId, MultipartFile file) throws Exception;
 
     /**
      * 删除文章

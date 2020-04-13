@@ -6,6 +6,7 @@
       <div class="heading">
         <input class="findtext" type="text"></input>
         <button class="findbtn">查询</button>
+        <span class="total">总计文章:{{this.totalElements}}</span>
         <button class="createbtn" @click="createArticle">新建文章</button>
       </div>
       <div class="content">
@@ -15,7 +16,7 @@
             <span class="title">{{item.title}}</span>
           </router-link>
           <button class="deletebtn" @click="deleteArticle(item.id)">删除</button>
-          <button class="editbtn">编辑</button>
+          <button class="editbtn" @click="editArticle(item.id)">编辑</button>
         </div>
       </div>
       <div class="pageing">
@@ -85,7 +86,6 @@
       },
       deleteArticle: function (id) {
         let that = this;
-        console.log(id);
         this.axios({
           method: 'delete',
           url: UrlInfo.url + 'api/article/' + id
@@ -103,6 +103,9 @@
             confirmButtonText: '确定'
           })
         })
+      },
+      editArticle: function (id) {
+        this.$router.push({name: 'vb-editArticle', params: {id: id}});
       }
     },
     data() {
@@ -170,7 +173,14 @@
     padding-top: 20px;
     height: 25px;
   }
-
+  .heading .total {
+    position: absolute;
+    font-size: 18px;
+    left: 600px;
+    top: 30px;
+    z-index: 5;
+    color: #68696e;
+  }
   .findtext {
     float: left;
     margin-left: 50px;

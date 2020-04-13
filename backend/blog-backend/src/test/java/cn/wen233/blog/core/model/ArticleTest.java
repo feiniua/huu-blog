@@ -29,16 +29,7 @@ public class ArticleTest {
 
     @Test
     void addTag() {
-        Article article = service.findOne("254c0f2c-27ec-4a1c-89dd-eb8c2b3b7bc8");
-        Tag tag = new Tag();
-        tag.setName("首页标签测试1");
-        Tag tag1 = new Tag();
-        tag1.setName("函数测试1");
-        Set<Tag> tags = new HashSet<>();
-        tags.add(tag);
-        tags.add(tag1);
-        article.setTags(tags);
-        service.insert(article, null);
+
     }
 
     @Test

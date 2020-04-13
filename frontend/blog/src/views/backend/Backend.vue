@@ -12,7 +12,7 @@
       <div class="body" v-if="this.$route.path === '/backend'">
         后台首页
       </div>
-      <el-avatar class="avatar"> {{username}}</el-avatar>
+      <el-avatar class="avatar" :size="60"> {{username}}</el-avatar>
       <div class="view">
         <router-view></router-view>
       </div>
