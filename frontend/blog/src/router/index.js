@@ -14,6 +14,7 @@ import BackendArticle from "../views/backend/BackendArticle";
 import BackendTag from "../views/backend/BackendTag";
 import BackendUser from "../views/backend/BackendUser";
 import CreateArticle from "../views/backend/CreateArticle";
+import Star from "../components/Star";
 
 Vue.use(Router)
 
@@ -24,7 +25,8 @@ export default new Router({
       path: '/',
       name: 'index',
       component: Index
-    }, {
+    },
+    {
       path: '/time',
       component: Time,
       name: 'v-time'

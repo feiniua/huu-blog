@@ -12,7 +12,7 @@
         <label class="password">
           <i class="el-icon-edit"></i>
           <input type="password" name="password" placeholder="Password" v-model="password"
-                 @keyup.enter.native="login()"/>
+                 @keyup.enter="login"/>
         </label>
         <button class="btn" v-on:click="login">登录</button>
         <Footing class="footing"></Footing>
@@ -25,7 +25,6 @@
 <script>
   import Footing from "../components/Footing";
   import UrlInfo from "../config/UrlInfo";
-  import Marked from "marked";
 
   export default {
     name: "Login",

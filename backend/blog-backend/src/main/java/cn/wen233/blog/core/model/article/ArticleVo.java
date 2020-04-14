@@ -7,6 +7,8 @@ import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author: huu
@@ -59,6 +61,10 @@ public class ArticleVo {
      * @return
      */
     private String filter(String body) {
+        String regex = "!\\[.*\\]\\(.*\\)|#*";
+        final Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(body);
+        body = matcher.replaceAll("");
         return body;
     }
 }

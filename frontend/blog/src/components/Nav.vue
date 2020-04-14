@@ -33,6 +33,7 @@
     position: absolute;
     right: 15%;
     top: 10px;
+    opacity: 0.8;
   }
 
   /*伪元素*/
@@ -52,7 +53,7 @@
   }
 
   .nav a:link, .nav a:visited {
-    color: #ffbac4;
+    color: #a07676;
     text-decoration: none;
     height: 3.5em;
     overflow: hidden;
