@@ -79,7 +79,6 @@
           });
           return;
         }
-        console.log(this.file)
         let that = this;
         let formData = new FormData();
         formData.append('file', that.file);

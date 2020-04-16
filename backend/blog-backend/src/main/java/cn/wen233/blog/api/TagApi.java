@@ -24,10 +24,19 @@ public class TagApi {
     }
 
     @PostMapping("")
-    public RestInfo insert(@RequestParam String tagName) {
-        Tag model = new Tag();
-        model.setName(tagName);
+    public RestInfo insert(@RequestBody Tag model) {
         return RestInfo.success(service.insert(model));
+    }
+
+    @PutMapping("/{id}")
+    public RestInfo edit(@PathVariable String id, @RequestBody Tag model) {
+        return RestInfo.success(service.edit(id, model));
+    }
+
+    @DeleteMapping("/{id}")
+    public RestInfo delete(@PathVariable String id) {
+        service.delete(id);
+        return RestInfo.success();
     }
 
 }

@@ -45,6 +45,13 @@ public interface ArticleService {
     List<ArticleVo> findAllByTime();
 
     /**
+     * 通过关键字查询
+     * @param key
+     * @return
+     */
+    List<Article> findByKey(String key);
+
+    /**
      * 保存新文章
      * @param model
      * @param tagsId
@@ -54,6 +61,15 @@ public interface ArticleService {
      */
     Article insert(Article model, List<String> tagsId, MultipartFile file) throws Exception;
 
+    /**
+     * 对文章内容进行编辑
+     * @param id
+     * @param model
+     * @param tagsId
+     * @param file
+     * @return
+     * @throws Exception
+     */
     Article edit(String id, Article model, List<String> tagsId, MultipartFile file) throws Exception;
 
     /**

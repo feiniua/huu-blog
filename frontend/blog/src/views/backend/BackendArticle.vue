@@ -4,8 +4,8 @@
       <el-page-header @back="goBack" content="文章管理"></el-page-header>
       <el-divider class="divider1"></el-divider>
       <div class="heading">
-        <input class="findtext" type="text"></input>
-        <button class="findbtn">查询</button>
+        <input class="findtext" type="text" v-model="findKey" @keyup.enter="findByKey"></input>
+        <button class="findbtn" @click="findByKey">查询</button>
         <span class="total">总计文章:{{this.totalElements}}</span>
         <button class="createbtn" @click="createArticle">新建文章</button>
       </div>
@@ -53,9 +53,27 @@
       })
     },
     methods: {
+      findByKey: function () {
+        if (this.findKey.length === 0) {
+          return;
+        }
+        let that = this;
+        this.axios({
+          method: "get",
+          url: UrlInfo.url + "api/article/byKey",
+          params: {
+            key: that.findKey
+          }
+        }).then(function (response) {
+          console.log(response.data);
+          that.articles = response.data.data;
+          that.totalElements = response.data.data.length;
+          that.pageSize = response.data.data.length;
+        })
+      },
       goBack: function () {
-        // this.$router.go(-1);
-        this.$router.push('/backend');
+        this.$router.go(-1);
+        // this.$router.push('/backend');
       },
       formatDate: function (date) {
         let year = date.substring(0, 4);
@@ -113,7 +131,8 @@
         articles: {},
         pageNumber: "",
         pageSize: "",
-        totalElements: ""
+        totalElements: "",
+        findKey: ""
       }
     }
   }
@@ -126,8 +145,6 @@
   }
 
   button {
-    color: #63638b;
-    background-color: #DCDFE6;
     outline: none;
     border: 0;
     border-radius: 2px;
@@ -161,7 +178,6 @@
     background-color: rgba(153, 162, 154, 0.33);
     min-height: 550px;
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
-
   }
 
   .divider1 {
@@ -176,7 +192,7 @@
   .heading .total {
     position: absolute;
     font-size: 18px;
-    left: 600px;
+    left: 50%;
     top: 30px;
     z-index: 5;
     color: #68696e;
@@ -197,6 +213,8 @@
     float: left;
     line-height: 23px;
     padding: 1px;
+    background-color: #a4b4cf;
+    color: #144c52;
   }
 
   .createbtn {
@@ -204,6 +222,8 @@
     line-height: 23px;
     margin-right: 50px;
     padding: 2px;
+    background-color: #5c8161;
+    color: #c1c4cb;
   }
 
   .content {
@@ -237,10 +257,14 @@
   .editbtn {
     float: right;
     margin-right: 10px;
+    background-color: #7fba92;
+    color: #573f40;
   }
 
   .deletebtn {
     float: right;
+    background-color: #c84e56;
+    color: #bfb3ad;
   }
 
   .pageing {

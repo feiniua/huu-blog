@@ -64,6 +64,12 @@ public class ArticleApi {
         return RestInfo.success(service.findAllByTime());
     }
 
+    @GetMapping("/byKey")
+    public RestInfo findByKey(@RequestParam(name = "key") String model) {
+        System.out.println(model);
+        return RestInfo.success(service.findByKey(model));
+    }
+
     /**
      * 采用表单提交的话需要 @RequestParam跟前端标签的name一致
      * @param title

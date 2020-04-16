@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -118,6 +117,20 @@ public class ArticleServiceImpl implements ArticleService {
         List<Article> articles = query.fetch();
         return ArticleVo.mapForm(articles);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<Article> findByKey(String key) {
+        QArticle qArticle = QArticle.article;
+        JPAQuery<Article> query = jpaQueryFactory
+                .select(qArticle)
+                .from(qArticle)
+                .where(qArticle.title.like("%" + key+ "%"))
+                .orderBy(QArticle.article.createAt.desc());
+        List<Article> articles = query.fetch();
+        return articles;
+    }
+
 
     /**
      * 新建文章

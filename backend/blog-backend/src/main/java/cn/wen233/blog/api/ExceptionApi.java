@@ -1,5 +1,6 @@
 package cn.wen233.blog.api;
 
+import cn.wen233.blog.infrustructure.exception.CheckException;
 import cn.wen233.blog.infrustructure.exception.ModelNotFoundException;
 import cn.wen233.blog.common.restful.RestInfo;
 import cn.wen233.blog.infrustructure.exception.PermissionException;
@@ -53,6 +54,11 @@ public class ExceptionApi {
 
     @ExceptionHandler(value = UploadException.class)
     public RestInfo uploadException(UploadException e) {
+        return RestInfo.fail(e.getMessage());
+    }
+
+    @ExceptionHandler(value = CheckException.class)
+    public RestInfo uploadException(CheckException e) {
         return RestInfo.fail(e.getMessage());
     }
 }

@@ -16,4 +16,8 @@ public interface TagService {
     List<Tag> findAll();
 
     Tag insert(Tag model);
+
+    Tag edit(String id, Tag model);
+
+    void delete(String id);
 }

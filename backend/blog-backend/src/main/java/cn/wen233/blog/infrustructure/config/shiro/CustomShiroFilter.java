@@ -44,7 +44,7 @@ public class CustomShiroFilter extends FormAuthenticationFilter {
         }
 
         Subject subject = getSubject(request, response);
-        System.out.println(subject.isPermitted("delete"));
+//        System.out.println(subject.isPermitted("delete"));
         if (PUT.equals(method)) {
             if (subject.isPermitted("edit")) {
                 return true;
