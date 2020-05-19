@@ -1,8 +1,8 @@
 # huu-blog
 个人博客，采用vue + springboot前后端分离实现，springboot只提供数据接口。
 
-***[TOC]***
 ## 前端
+
 ### vue
 
 **使用依赖**
