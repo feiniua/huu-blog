@@ -30,23 +30,44 @@
   * main.js
 
 #### 首页
-![image](https://github.com/feiniua/huu-blog/blob/master/md_image/home1.png)
 
-![image](https://github.com/feiniua/huu-blog/blob/master/md_image/home2..png)
+![image](http://feiniua.gitee.io/imagebed/img/home1.png)
+
+![image](http://feiniua.gitee.io/imagebed/img/home2..png)
 
 #### 文章页
 
-![image](https://github.com/feiniua/huu-blog/blob/master/md_image/article.png)
+![image](http://feiniua.gitee.io/imagebed/img/article.png)
 
 #### 标签页
-![image](https://github.com/feiniua/huu-blog/blob/master/md_image/tag.png)
-![image](https://github.com/feiniua/huu-blog/blob/master/md_image/singletag.png)
+![image](http://feiniua.gitee.io/imagebed/img/tag.png)
+![image](http://feiniua.gitee.io/imagebed/img/singletag.png)
 
 #### 归档页
-![image](https://github.com/feiniua/huu-blog/blob/master/md_image/time.png)
+![image](http://feiniua.gitee.io/imagebed/img/time.png)
 
 ## 后端
 
+采用Springboot。
+
+* shiro:
+	* 继承FormAuthenticationFilter拦截器，对不同请求方式进行拦截
+* querydsl：
+	* DAO层用来多表查询
+
+### 建表
+
+Article：用来记录文章信息
+
+Tag：标签，用来对文章进行分类。
+
+*认证*
+
+User：用户，一个用户对应一个角色
+
+Role：角色，一个角色对应多个权限
+
+Permission：权限，add对应post，edit对应put，delete对应delete
 
 ## 日志
 

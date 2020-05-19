@@ -19,6 +19,7 @@ import java.util.Map;
  * @description:
  *
  *      过滤器中的异常捕获处理api
+ *      @ControllerAdvice 只能捕获Controller中的异常不能捕获过滤器中的
  */
 @RestController
 public class FilterExceptionApi extends BasicErrorController {
