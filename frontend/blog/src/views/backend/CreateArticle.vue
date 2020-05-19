@@ -63,6 +63,10 @@
     },
     methods: {
       createArticle: function () {
+        if (this.isDisable) {
+          return;
+        }
+        this.isDisable = true;
         if (this.title.length === 0) {
           this.$notify({
             title: '警告',
@@ -139,7 +143,8 @@
         file: "",
         fileSpan: "背景图片",
         tags: {},
-        tagValue: []
+        tagValue: [],
+        isDisable: false
       }
     }
   }

@@ -66,7 +66,6 @@ public class ArticleApi {
 
     @GetMapping("/byKey")
     public RestInfo findByKey(@RequestParam(name = "key") String model) {
-        System.out.println(model);
         return RestInfo.success(service.findByKey(model));
     }
 

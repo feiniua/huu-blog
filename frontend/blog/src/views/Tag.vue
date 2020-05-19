@@ -61,7 +61,7 @@
   .content {
     position: relative;
     width: 70%;
-    min-height: 550px;
+    min-height: 750px;
     background-color: #DCDFE6;
     top: 80px;
     margin: 0 auto 80px;

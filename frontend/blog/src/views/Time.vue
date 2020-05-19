@@ -73,7 +73,7 @@
     top: 80px;
     background-color: #DCDFE6;
     opacity: 0.9;
-    min-height: 450px;
+    min-height: 750px;
     width: 70%;
     margin: 0 auto;
     padding-bottom: 80px;

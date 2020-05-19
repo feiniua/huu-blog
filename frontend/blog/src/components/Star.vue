@@ -34,7 +34,7 @@
   .wrapper {
     position: fixed;
     width: 100%;
-    height: 800px;
+    height: 900px;
     background: radial-gradient(220% 105% at top center, #0a111d 10%, #1b2947 40%, #75517d 65%, #c06070) fixed;
   }
 

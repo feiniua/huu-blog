@@ -125,7 +125,7 @@ public class ArticleServiceImpl implements ArticleService {
         JPAQuery<Article> query = jpaQueryFactory
                 .select(qArticle)
                 .from(qArticle)
-                .where(qArticle.title.like("%" + key+ "%"))
+                .where(qArticle.title.like(key+ "%"))
                 .orderBy(QArticle.article.createAt.desc());
         List<Article> articles = query.fetch();
         return articles;

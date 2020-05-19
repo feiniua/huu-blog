@@ -34,8 +34,8 @@ public class ArticleTest {
 
     @Test
     void delTag() {
-        Tag tag = tagRepository.findById("da4b3c29-2802-4623-9cf2-54e820badbf2").orElseThrow(() -> new ModelNotFoundException("未找到"));
-        tagRepository.delete(tag);
+//        Tag tag = tagRepository.findById("da4b3c29-2802-4623-9cf2-54e820badbf2").orElseThrow(() -> new ModelNotFoundException("未找到"));
+//        tagRepository.delete(tag);
 
     }
 }

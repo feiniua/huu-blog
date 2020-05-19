@@ -4,7 +4,7 @@
       <div class="wrapper">
         <Nav></Nav>
         <div class="content">
-          <span>星空</span>
+          <span>追寻星空大海</span>
         </div>
         <Footing class="footing"></Footing>
 <!--        背景图片-->
@@ -38,21 +38,24 @@
   }
   .wrapper .content {
     width: 70%;
-    min-height: 500px;
-    background-color: #b0b9b7;
+    min-height: 600px;
+    /*background-color: #b0b9b7;*/
     margin: 0 auto;
     position: relative;
     top: 80px;
     padding-bottom: 80px;
-    opacity: 0;
   }
   .content span {
     position: relative;
-    top: 150px;
+    top: 200px;
     font-family: cursive;
     padding-bottom: 20px;
     font-size: 23px;
     font-weight: bold;
+    color: #0f3d2a;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
   }
   .footing {
     padding: 5px;

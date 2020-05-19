@@ -1,6 +1,7 @@
 <template>
   <div class="backend">
     <div class="wrapper">
+      <div class="background"></div>
       <div class="heading">
         <router-link to="/backend" class="nav"><i class="el-icon-s-home"></i></router-link>
         <router-link to="/backend/article" class="nav">文章<i class="el-icon-document"></i></router-link>
@@ -65,8 +66,16 @@
   .wrapper {
     width: 100%;
     position: relative;
+  }
+
+  .background {
     background-color: rgba(176, 194, 211, 0.77);
-    min-height: 690px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
   }
 
   .heading {
