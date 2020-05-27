@@ -1,7 +1,7 @@
 # huu-blog
 
-个人博客，采用vue + springboot前后端分离实现，springboot只提供数据接口。
-部署采用docker部署，打包成两个镜像，分别运行。
+个人博客，采用vue + springboot前后端分离实现，springboot只提供数据接口。部署采用docker部署，打包成两个镜像，分别运行。
+
 项目地址：<http://47.95.239.221/>
 **点击页面下的邮箱进入后台登录界面。**
 提供一个管理员账号admin 123456。
