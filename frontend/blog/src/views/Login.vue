@@ -99,7 +99,7 @@
     position: relative;
     top: 280px;
     left: 50%;
-    margin-top: -125px;
+    margin-top: -75px;
     margin-left: -200px;
     opacity: 0.7;
   }

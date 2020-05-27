@@ -34,12 +34,13 @@ public class CustomShiroFilter extends FormAuthenticationFilter {
     private final static String POST = "POST";
     private final static String PUT = "PUT";
     private final static String DELETE = "DELETE";
+    private final static String OPTIONS = "OPTIONS";
 
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String method = httpServletRequest.getMethod();
-        if (GET.equals(method)) {
+        if (GET.equals(method) || OPTIONS.equals(method)) {
             return true;
         }
 

@@ -1,5 +1,13 @@
 # huu-blog
+
 个人博客，采用vue + springboot前后端分离实现，springboot只提供数据接口。
+部署采用docker部署，打包成两个镜像，分别运行。
+项目地址：<http://47.95.239.221/>
+**点击页面下的邮箱进入后台登录界面。**
+提供一个管理员账号admin 123456。
+一个游客账号xian 123456。
+
+PS：七牛云图床挂了，有时间的话再添加评论模块。
 
 ## 前端
 
@@ -28,6 +36,10 @@
   * views/        // 页面
   * App.vue       
   * main.js
+  
+### Element-UI
+
+使用相关组件
 
 #### 首页
 
@@ -40,7 +52,9 @@
 ![image](http://feiniua.gitee.io/imagebed/img/article.png)
 
 #### 标签页
+
 ![image](http://feiniua.gitee.io/imagebed/img/tag.png)
+
 ![image](http://feiniua.gitee.io/imagebed/img/singletag.png)
 
 #### 归档页
@@ -97,3 +111,30 @@ Permission：权限，add对应post，edit对应put，delete对应delete
 	* 后台数据发送时进行过滤
 * 4.16
 	* 完成后台tag页
+	
+## 部署
+
+**分别在build下面的两个目录中构建镜像。**
+
+### blogfrontend
+
+进入目录build/blogfrontend后，执行
+docker build -t blog .
+构建前端镜像。
+
+然后使用
+docker run -d -p 80:80 blog
+运行镜像
+
+### blogbackend
+
+**注意：后端连接的宿主机端口3306，mysql中需要执行相应数据库脚本后才能运行后端项目。**
+**脚本文件在项目resources目录下。**
+
+进入目录build/blogbackend后，执行
+docker build -t blogend .
+构建后端镜像。
+
+然后使用
+docker run -d --net host blogend
+运行镜像。

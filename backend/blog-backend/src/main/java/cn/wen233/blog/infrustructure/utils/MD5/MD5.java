@@ -48,7 +48,7 @@ public class MD5 {
     }
 
     public static void main(String[] args) {
-        String s = "qw123456..";
+        String s = "123456";
         System.out.println(MD5.getMD5(s, 32));
     }
 }

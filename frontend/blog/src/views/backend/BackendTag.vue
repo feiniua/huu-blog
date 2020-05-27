@@ -4,7 +4,7 @@
       <el-page-header @back="goBack" content="标签管理">
       </el-page-header>
       <div class="createBtn">
-        <button @click="create">新建标签</button>
+        <button @click="createTag">新建标签</button>
       </div>
       <div class="content">
         <span class="tag" v-for="tag in tags.data">
@@ -32,7 +32,7 @@
       })
     },
     methods: {
-      create: function () {
+      createTag: function () {
         let that = this;
         this.$prompt('标签名', '新建', {
           confirmButtonText: '确定',
@@ -41,7 +41,10 @@
           that.axios({
             method: "post",
             url: UrlInfo.url + 'api/tag',
-            data: {name: value},
+            headers: {
+              'Content-Type':'application/json'
+            },
+            data: {name: value}
           }).then(function (response) {
             // 如果后台返回状态为false
             if (!response.data.success) {
